@@ -1,0 +1,8 @@
+# Ignore backend Python files from Vercel static build
+backend/
+scratch/
+models/
+outputs/
+uploads/
+*.ipynb
+*.csv

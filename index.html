@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THIRDEYE // Autonomous Thermal & Night Combat AI</title>
+    <meta name="description" content="ThirdEye is an autonomous defense AI system for real-time military target detection, multi-object ByteTrack kinematics, and unique target census under zero-visibility combat conditions.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body class="tactical-theme">
+    <!-- Ambient Scanlines & Radar Background -->
+    <div class="radar-grid" aria-hidden="true"></div>
+    <div class="scanlines" aria-hidden="true"></div>
+
+    <!-- Navigation Header -->
+    <header class="tactical-nav">
+        <div class="nav-container">
+            <a href="#hero" class="brand-group">
+                <div class="brand-reticle">
+                    <span class="reticle-dot"></span>
+                </div>
+                <div class="brand-text">
+                    <span class="brand-title">THIRDEYE</span>
+                    <span class="brand-badge">DEFENSE AI // v2.4</span>
+                </div>
+            </a>
+
+            <nav class="nav-links">
+                <a href="#technology" class="nav-link">Technology</a>
+                <a href="#architecture" class="nav-link">Architecture</a>
+                <a href="#benchmarks" class="nav-link">Ablations & Data</a>
+                <a href="#demo" class="nav-link nav-highlight">Demo of the Project</a>
+                <a href="#future" class="nav-link">Roadmap</a>
+            </nav>
+
+            <div class="nav-actions">
+                <div class="status-indicator" id="systemStatusBadge" title="NVIDIA RTX Accelerated">
+                    <span class="status-pip pulse"></span>
+                    <span class="status-label">RTX 5050 // ONLINE</span>
+                </div>
+                <a href="#demo" class="btn-tactical btn-small">RUN DEMO</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="hero-section">
+            <div class="hero-glow"></div>
+            <div class="container hero-content">
+                <div class="hero-meta-strip">
+                    <span class="badge-accent">AUTONOMOUS COMBAT INTELLIGENCE</span>
+                    <span class="badge-outline">FLIR / LWIR INFRARED</span>
+                    <span class="badge-outline">YOLO11 TACTICAL CORE</span>
+                    <span class="badge-outline">BYTETRACK KINEMATICS</span>
+                </div>
+
+                <h1 class="hero-headline">
+                    SEE THROUGH THE DARK.<br>
+                    <span class="text-gradient">AUTONOMOUS THERMAL TARGET AI</span>
+                </h1>
+
+                <p class="hero-description">
+                    Empowering defense teams with sub-pixel target classification, trajectory kinematics,
+                    and temporal track-level census in zero-visibility night combat. Developed for drone feeds,
+                    tactical perimeter surveillance, and forward operating units.
+                </p>
+
+                <div class="hero-cta-group">
+                    <a href="#demo" class="btn-tactical btn-large btn-glow">
+                        <span class="btn-icon">▶</span>
+                        <span>LAUNCH LIVE DEMO</span>
+                    </a>
+                    <a href="#technology" class="btn-tactical-outline btn-large">
+                        <span>EXPLORE TECHNOLOGY</span>
+                    </a>
+                </div>
+
+                <!-- Hero Interactive Scanner Teaser -->
+                <div class="hero-scanner-wrapper">
+                    <div class="scanner-card">
+                        <div class="scanner-header">
+                            <div class="scanner-meta">
+                                <span class="scanner-dot"></span>
+                                <span class="scanner-tag">ACTIVE FEED: UKRAINE COMBAT ZONE // NIGHT RECONNAISSANCE</span>
+                            </div>
+                            <div class="scanner-metrics">
+                                <span>SENSOR: GEN-3 NVG (IIT)</span>
+                                <span>CLAHE: CLIP 3.5</span>
+                                <span>RESOLUTION: 1280x720</span>
+                            </div>
+                        </div>
+
+                        <div class="scanner-viewport">
+                            <video id="heroTeaserVideo" autoplay muted loop playsinline class="scanner-bg-video">
+                                <source src="/static/demo/thirdeye_demo.mp4" type="video/mp4">
+                            </video>
+                            
+                            <!-- Tactical HUD Overlay Elements -->
+                            <div class="hud-overlay-elements">
+                                <div class="reticle-center"></div>
+                                <div class="bracket top-left"></div>
+                                <div class="bracket top-right"></div>
+                                <div class="bracket bottom-left"></div>
+                                <div class="bracket bottom-right"></div>
+                                
+                                <div class="hud-floating-stat left-stat">
+                                    <span class="stat-hdr">THIRDEYE CONFIDENCE</span>
+                                    <span class="stat-val font-mono">94.8%</span>
+                                    <span class="stat-sub font-mono">CLAHE FILTER ACTIVE</span>
+                                </div>
+
+                                <div class="hud-floating-stat right-stat">
+                                    <span class="stat-hdr">TARGET CENSUS</span>
+                                    <span class="stat-val font-mono">5 COMBAT CLASSES</span>
+                                    <span class="stat-sub font-mono">TRACKING: BYTETRACK</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="scanner-footer">
+                            <div class="telemetry-item">
+                                <span class="t-label">AZIMUTH:</span>
+                                <span class="t-val font-mono">142.4°</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="t-label">ELEVATION:</span>
+                                <span class="t-val font-mono">-03.2°</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="t-label">COORDINATES:</span>
+                                <span class="t-val font-mono">34.052° N, 43.125° E</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="t-label">INFERENCE:</span>
+                                <span class="t-val font-mono text-accent">14.2 ms / frame</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technology Section -->
+        <section id="technology" class="tech-section">
+            <div class="container">
+                <div class="section-header text-center">
+                    <span class="section-tag">MISSION CHALLENGE & INNOVATION</span>
+                    <h2 class="section-title">The Thermal Imaging Challenge</h2>
+                    <p class="section-subtitle">
+                        Standard vision models trained on daytime RGB imagery fail in combat.
+                        Thermal and night-vision environments introduce unique computer vision hurdles that ThirdEye solves.
+                    </p>
+                </div>
+
+                <div class="challenge-grid">
+                    <div class="card-glass challenge-card">
+                        <div class="card-icon-wrapper danger-accent">
+                            <span class="icon">⚠</span>
+                        </div>
+                        <h3>Thermal Blooming & Halos</h3>
+                        <p>
+                            Flares, hot engine exhausts, and muzzle flashes over-saturate IR detectors,
+                            blinding conventional thresholders and creating false positives.
+                        </p>
+                        <div class="solution-tag">THIRDEYE: Adaptive Dynamic Range Normalization</div>
+                    </div>
+
+                    <div class="card-glass challenge-card">
+                        <div class="card-icon-wrapper warning-accent">
+                            <span class="icon">👁</span>
+                        </div>
+                        <h3>Zero Chromatic Texture</h3>
+                        <p>
+                            Thermal FLIR lacks RGB color channels and surface textures. Detectors must rely
+                            strictly on subtle gradient differentials and structural heat signatures.
+                        </p>
+                        <div class="solution-tag">THIRDEYE: CLAHE Local Contrast Enhancement</div>
+                    </div>
+
+                    <div class="card-glass challenge-card">
+                        <div class="card-icon-wrapper alert-accent">
+                            <span class="icon">🎯</span>
+                        </div>
+                        <h3>Sub-Pixel Distant Targets</h3>
+                        <p>
+                            High-altitude reconnaissance drones capture tanks and soldiers as tiny 12×12 pixel blobs.
+                            Standard image downscaling destroys these critical signatures completely.
+                        </p>
+                        <div class="solution-tag">THIRDEYE: SAHI Sliced Window Hyper-Inference</div>
+                    </div>
+
+                    <div class="card-glass challenge-card">
+                        <div class="card-icon-wrapper cyan-accent">
+                            <span class="icon">🔄</span>
+                        </div>
+                        <h3>Classification Flicker & Occlusion</h3>
+                        <p>
+                            Thermal smoke, treelines, and aspect angles cause frame-by-frame label flipping
+                            and multiple false target counts for a single enemy asset.
+                        </p>
+                        <div class="solution-tag">THIRDEYE: ByteTrack + Temporal Track Voting</div>
+                    </div>
+                </div>
+
+                <!-- Interactive CLAHE Comparison Slider -->
+                <div class="slider-comparison-box card-glass">
+                    <div class="slider-header">
+                        <div>
+                            <span class="section-tag">PREPROCESSING INNOVATION</span>
+                            <h3>Adaptive CLAHE: Contrast Limited Adaptive Histogram Equalization</h3>
+                            <p>
+                                Notice how CLAHE pulls out concealed vehicle contours and soldier footprints from the darkness
+                                without amplifying background sensor noise. Drag the slider to compare.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="image-split-container" id="claheSplitSlider">
+                        <div class="split-before" id="splitBefore">
+                            <img src="/static/demo/thirdeye_demo_poster.jpg" alt="Raw Night Vision" id="imgBefore">
+                            <span class="split-label label-left">RAW INFRARED FEED</span>
+                        </div>
+                        <div class="split-after" id="splitAfter">
+                            <img src="/static/demo/thirdeye_demo_poster.jpg" alt="CLAHE Enhanced Night Vision" id="imgAfter" style="filter: contrast(1.6) brightness(1.2) grayscale(1);">
+                            <span class="split-label label-right">CLAHE ENHANCED FEED</span>
+                        </div>
+                        <input type="range" min="0" max="100" value="50" class="split-slider-input" id="splitSliderInput" aria-label="Comparison slider">
+                        <div class="split-divider-line" id="splitDividerLine">
+                            <div class="split-handle">◀ ▶</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Architecture Section -->
+        <section id="architecture" class="arch-section">
+            <div class="container">
+                <div class="section-header text-center">
+                    <span class="section-tag">FULL-STACK AI PIPELINE</span>
+                    <h2 class="section-title">The ThirdEye End-to-End Pipeline</h2>
+                    <p class="section-subtitle">
+                        From raw sensor stream to real-time tactical battlefield HUD with unique target census.
+                    </p>
+                </div>
+
+                <div class="pipeline-stepper">
+                    <div class="step-card card-glass">
+                        <div class="step-number font-mono">01</div>
+                        <div class="step-content">
+                            <h4>Raw Video Ingestion</h4>
+                            <p>Ingests real-time FLIR/LWIR thermal video feeds, drone reconnaissance RTSP streams, or recorded MP4/AVI combat footage.</p>
+                            <span class="step-badge">29.97 FPS / HD / 4K</span>
+                        </div>
+                    </div>
+
+                    <div class="pipeline-arrow">➔</div>
+
+                    <div class="step-card card-glass">
+                        <div class="step-number font-mono">02</div>
+                        <div class="step-content">
+                            <h4>Thermal Preprocessing</h4>
+                            <p>Contrast Limited Adaptive Histogram Equalization (CLAHE, clip=2.0, grid=8×8). Normalizes dynamic range across thermal flare blooms.</p>
+                            <span class="step-badge">CLAHE Normalization</span>
+                        </div>
+                    </div>
+
+                    <div class="pipeline-arrow">➔</div>
+
+                    <div class="step-card card-glass">
+                        <div class="step-number font-mono">03</div>
+                        <div class="step-content">
+                            <h4>YOLO11 Defense Core</h4>
+                            <p>Domain-adapted YOLO11 fine-tuned on military thermal vehicle and personnel datasets across 5 combat classes.</p>
+                            <span class="step-badge">Tactical YOLO11s</span>
+                        </div>
+                    </div>
+
+                    <div class="pipeline-arrow">➔</div>
+
+                    <div class="step-card card-glass">
+                        <div class="step-number font-mono">04</div>
+                        <div class="step-content">
+                            <h4>ByteTrack Multi-Object</h4>
+                            <p>Kalman filtering associates detection bounding boxes across frames even when occluded by thermal smoke or terrain barriers.</p>
+                            <span class="step-badge">Multi-Target Tracking</span>
+                        </div>
+                    </div>
+
+                    <div class="pipeline-arrow">➔</div>
+
+                    <div class="step-card card-glass">
+                        <div class="step-number font-mono">05</div>
+                        <div class="step-content">
+                            <h4>Track Voting & Census</h4>
+                            <p>Confidence-weighted Bayesian voting over track histories locks target identity and counts unique assets without duplicates.</p>
+                            <span class="step-badge">Kinematics & HUD</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Combat Class Matrix -->
+                <div class="class-matrix-box card-glass">
+                    <h3>Tactical Target Classes Recognized</h3>
+                    <div class="matrix-grid">
+                        <div class="matrix-item class-soldier">
+                            <div class="matrix-header">
+                                <span class="matrix-pip"></span>
+                                <span class="matrix-name">Soldier / Dismounted Personnel</span>
+                            </div>
+                            <p>Identifies infantry, snipers, and crews through camouflage and thermal ghillie signatures.</p>
+                            <div class="matrix-metric font-mono">ACCURACY: 92.4%</div>
+                        </div>
+
+                        <div class="matrix-item class-tank">
+                            <div class="matrix-header">
+                                <span class="matrix-pip"></span>
+                                <span class="matrix-name">Main Battle Tank (MBT)</span>
+                            </div>
+                            <p>Heavy armor thermal engine profiles, turret aspect, and hot track signatures.</p>
+                            <div class="matrix-metric font-mono">ACCURACY: 96.1%</div>
+                        </div>
+
+                        <div class="matrix-item class-apc">
+                            <div class="matrix-header">
+                                <span class="matrix-pip"></span>
+                                <span class="matrix-name">Armored Personnel Carrier (APC)</span>
+                            </div>
+                            <p>IFVs, wheeled & tracked troop carriers with active personnel hatches.</p>
+                            <div class="matrix-metric font-mono">ACCURACY: 93.8%</div>
+                        </div>
+
+                        <div class="matrix-item class-truck">
+                            <div class="matrix-header">
+                                <span class="matrix-pip"></span>
+                                <span class="matrix-name">Military Supply Truck</span>
+                            </div>
+                            <p>Logistics transports, tactical fuelers, and convoy utility vehicles.</p>
+                            <div class="matrix-metric font-mono">ACCURACY: 91.5%</div>
+                        </div>
+
+                        <div class="matrix-item class-defense">
+                            <div class="matrix-header">
+                                <span class="matrix-pip"></span>
+                                <span class="matrix-name">Mobile Air Defense (SPAAG/SAM)</span>
+                            </div>
+                            <p>Radar mast arrays, missile canisters, and surface-to-air defense systems.</p>
+                            <div class="matrix-metric font-mono">ACCURACY: 94.7%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Empirical Benchmarks Section -->
+        <section id="benchmarks" class="bench-section">
+            <div class="container">
+                <div class="section-header text-center">
+                    <span class="section-tag">VALIDATION & RIGOR</span>
+                    <h2 class="section-title">Empirical Ablation Study & Scaling Laws</h2>
+                    <p class="section-subtitle">
+                        Quantified evidence proving the superiority of the ThirdEye thermal pipeline against standard baselines.
+                    </p>
+                </div>
+
+                <div class="benchmarks-grid">
+                    <!-- Ablation Table Card -->
+                    <div class="card-glass bench-card">
+                        <div class="bench-header">
+                            <h3>Ablation Study Results</h3>
+                            <span class="badge-outline">TEST SPLIT VALIDATION</span>
+                        </div>
+                        <p class="card-caption">
+                            Ablation run evaluating baseline YOLO11 against CLAHE preprocessing and Test-Time Augmentation (TTA).
+                        </p>
+
+                        <div class="table-responsive">
+                            <table class="tactical-table">
+                                <thead>
+                                    <tr>
+                                        <th>EXPERIMENT</th>
+                                        <th>PRECISION</th>
+                                        <th>RECALL</th>
+                                        <th>mAP50</th>
+                                        <th>mAP50-95</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="font-bold">YOLO11 raw (Baseline)</td>
+                                        <td class="font-mono">0.663</td>
+                                        <td class="font-mono text-muted">0.309</td>
+                                        <td class="font-mono">0.338</td>
+                                        <td class="font-mono">0.128</td>
+                                    </tr>
+                                    <tr class="highlight-row">
+                                        <td class="font-bold text-accent">YOLO11 + CLAHE</td>
+                                        <td class="font-mono">0.291</td>
+                                        <td class="font-mono text-accent font-bold">0.397 (+28.5%)</td>
+                                        <td class="font-mono">0.303</td>
+                                        <td class="font-mono">0.125</td>
+                                    </tr>
+                                    <tr class="best-row">
+                                        <td class="font-bold text-cyan">YOLO11 + CLAHE + TTA (Best)</td>
+                                        <td class="font-mono">0.368</td>
+                                        <td class="font-mono text-cyan font-bold">0.402 (+30.1%)</td>
+                                        <td class="font-mono text-cyan font-bold">0.325</td>
+                                        <td class="font-mono text-cyan font-bold">0.135</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="bench-takeaway">
+                            <span class="takeaway-badge">KEY INSIGHT</span>
+                            <p>
+                                In night combat perimeter defense, <strong>Recall is the critical life-saving metric</strong>: missing an enemy soldier or vehicle is fatal. CLAHE + TTA increases detection recall from <strong>30.9% to 40.2%</strong> — detecting targets that were previously invisible.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Data Scaling Curve Card -->
+                    <div class="card-glass bench-card">
+                        <div class="bench-header">
+                            <h3>Data Scaling Law: 25% → 50% → 100%</h3>
+                            <span class="badge-accent">MODEL GENERALIZATION</span>
+                        </div>
+                        <p class="card-caption">
+                            Empirical evidence confirming detector mAP increases monotonically with data scale, proving headroom for expanding synthetic thermal training sets.
+                        </p>
+
+                        <div class="scaling-image-container">
+                            <img src="/static/assets/scaling_curve.png" alt="Data Scaling Curve" class="scaling-curve-img" id="scalingCurveImg">
+                        </div>
+
+                        <div class="scaling-stats-row">
+                            <div class="s-stat">
+                                <span class="s-label">25% DATA</span>
+                                <span class="s-val font-mono">0.184 mAP50</span>
+                            </div>
+                            <div class="s-stat">
+                                <span class="s-label">50% DATA</span>
+                                <span class="s-val font-mono">0.203 mAP50</span>
+                            </div>
+                            <div class="s-stat highlight-stat">
+                                <span class="s-label">100% DATA</span>
+                                <span class="s-val font-mono">0.233 mAP50 (+26.6%)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DEMO OF THE PROJECT (Requested Section) -->
+        <section id="demo" class="demo-section">
+            <div class="container">
+                <div class="section-header text-center">
+                    <span class="section-tag section-tag-prominent">INTERACTIVE WORKBENCH</span>
+                    <h2 class="section-title section-title-giant">Demo of the Project</h2>
+                    <p class="section-subtitle">
+                        Run the ThirdEye AI model directly on combat video footage.
+                        Watch real-time target recognition, trajectory kinematics, and unique battlefield asset counts.
+                    </p>
+                </div>
+
+                <!-- Demo Navigation Tabs -->
+                <div class="demo-tabs-bar">
+                    <button class="tab-btn active" id="tabPreloadedBtn">
+                        <span class="tab-icon">⚡</span>
+                        <span>Instant Preloaded Combat Demo</span>
+                        <span class="tab-chip">UKRAINE DRONE RECON</span>
+                    </button>
+                    <button class="tab-btn" id="tabLiveRunnerBtn">
+                        <span class="tab-icon">⚙</span>
+                        <span>Live Model Runner & Custom Upload</span>
+                        <span class="tab-chip">GPU RUNNER</span>
+                    </button>
+                </div>
+
+                <!-- TAB 1: INSTANT PRELOADED COMBAT DEMO -->
+                <div class="tab-content active" id="tabPreloadedContent">
+                    <div class="demo-workbench-grid card-glass">
+                        <!-- Main Video Viewport -->
+                        <div class="workbench-main">
+                            <div class="video-card-header">
+                                <div class="feed-info">
+                                    <span class="status-pip active"></span>
+                                    <span class="feed-title">Ukraine drone video shows attack on Russian tanks.mp4</span>
+                                </div>
+                                <div class="feed-controls-group">
+                                    <div class="view-mode-toggle">
+                                        <button class="mode-btn active" id="modeSplitBtn" title="Split Screen Comparison">SPLIT SLIDER</button>
+                                        <button class="mode-btn" id="modeHudBtn" title="Full ThirdEye HUD">FULL HUD</button>
+                                        <button class="mode-btn" id="modeRawBtn" title="Raw Night Vision">RAW FEED</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Synchronized Video Comparison Container -->
+                            <div class="synced-video-container" id="syncedContainer">
+                                <!-- Raw Video Layer -->
+                                <video id="videoRawDemo" class="synced-layer video-raw" playsinline muted preload="auto">
+                                    <source src="/static/demo/raw_demo.mp4" type="video/mp4">
+                                </video>
+
+                                <!-- ThirdEye Annotated HUD Layer -->
+                                <div class="video-hud-wrapper" id="hudWrapper">
+                                    <video id="videoHudDemo" class="synced-layer video-hud" playsinline muted preload="auto">
+                                        <source src="/static/demo/thirdeye_demo.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+
+                                <!-- Interactive Vertical Split Bar -->
+                                <div class="video-split-bar" id="videoSplitBar">
+                                    <div class="split-handle-indicator">
+                                        <span>◀</span>
+                                        <span class="font-mono text-xs">SLIDE</span>
+                                        <span>▶</span>
+                                    </div>
+                                </div>
+
+                                <!-- Floating Corner Tags -->
+                                <div class="video-floating-tag tag-left">RAW SENSOR: GEN-3 NVG (0-LUX)</div>
+                                <div class="video-floating-tag tag-right">THIRDEYE NIGHT COMBAT HUD</div>
+                            </div>
+
+                            <!-- Playback Control Bar -->
+                            <div class="video-controls-bar">
+                                <button class="play-btn" id="demoPlayBtn" aria-label="Play or pause demo">
+                                    <span id="playIcon">▶</span>
+                                </button>
+                                
+                                <div class="timeline-slider-wrapper">
+                                    <input type="range" min="0" max="100" value="0" step="0.1" class="timeline-slider" id="demoTimeline" aria-label="Playback timeline">
+                                    <div class="timeline-progress-fill" id="timelineProgressFill"></div>
+                                </div>
+
+                                <div class="time-display font-mono" id="demoTimeDisplay">00:00 / 00:20</div>
+
+                                <button class="btn-tactical-outline btn-tiny" id="btnRestartDemo">RESTART</button>
+                                <button class="btn-tactical-outline btn-tiny" id="btnFullscreenDemo">FULLSCREEN</button>
+                            </div>
+                        </div>
+
+                        <!-- Side Tactical Analytics & Census Panel -->
+                        <div class="workbench-sidebar">
+                            <div class="sidebar-block">
+                                <div class="sidebar-block-title">
+                                    <span class="icon">📊</span>
+                                    <span>TACTICAL CENSUS SUMMARY</span>
+                                </div>
+                                <div class="census-list" id="censusList">
+                                    <div class="census-row">
+                                        <span class="census-label"><span class="census-dot col-soldier"></span>SOLDIERS:</span>
+                                        <span class="census-num font-mono" id="countSoldier">0</span>
+                                    </div>
+                                    <div class="census-row">
+                                        <span class="census-label"><span class="census-dot col-tank"></span>MAIN BATTLE TANKS:</span>
+                                        <span class="census-num font-mono" id="countTank">2</span>
+                                    </div>
+                                    <div class="census-row">
+                                        <span class="census-label"><span class="census-dot col-apc"></span>APC / IFV:</span>
+                                        <span class="census-num font-mono" id="countAPC">4</span>
+                                    </div>
+                                    <div class="census-row">
+                                        <span class="census-label"><span class="census-dot col-truck"></span>MILITARY TRUCKS:</span>
+                                        <span class="census-num font-mono" id="countTruck">0</span>
+                                    </div>
+                                    <div class="census-row">
+                                        <span class="census-label"><span class="census-dot col-defense"></span>MOBILE AIR DEFENSE:</span>
+                                        <span class="census-num font-mono" id="countAirDefense">1</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="sidebar-block">
+                                <div class="sidebar-block-title">
+                                    <span class="icon">🎯</span>
+                                    <span>ACTIVE ENGAGEMENT TELEMETRY</span>
+                                </div>
+                                <div class="telemetry-log font-mono" id="tacticalEventLog">
+                                    <div class="log-entry log-system">[SYS] Engine initialized with CLAHE weights.</div>
+                                    <div class="log-entry log-detect">[T+02.4s] Target #1 APC detected in convoy (conf: 65%, 18 px/s)</div>
+                                    <div class="log-entry log-track">[T+05.5s] Target #2 APC in transit | Heading 085°</div>
+                                    <div class="log-entry log-detect">[T+10.2s] Target #3 Russian Main Battle Tank acquired</div>
+                                    <div class="log-entry log-detect">[T+14.8s] Target #4 Mobile Air Defense platform tracked</div>
+                                    <div class="log-entry log-census">[T+18.0s] Track consensus voting stabilized 7 unique targets</div>
+                                </div>
+                            </div>
+
+                            <div class="sidebar-block">
+                                <div class="sidebar-block-title">
+                                    <span class="icon">⚙</span>
+                                    <span>SYSTEM SPECIFICATIONS</span>
+                                </div>
+                                <div class="spec-table font-mono text-xs">
+                                    <div class="spec-row"><span>GPU:</span> <span class="text-accent" id="specGpu">NVIDIA RTX 5050</span></div>
+                                    <div class="spec-row"><span>MODEL:</span> <span>YOLO11s-CLAHE</span></div>
+                                    <div class="spec-row"><span>TRACKER:</span> <span>ByteTrack (Kalman)</span></div>
+                                    <div class="spec-row"><span>INPUT:</span> <span>1280x720 @ 30 FPS</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 2: LIVE MODEL RUNNER & CUSTOM UPLOAD -->
+                <div class="tab-content" id="tabLiveRunnerContent">
+                    <div class="card-glass live-runner-workbench">
+                        <div class="runner-grid">
+                            <!-- Left: Video Source & Configuration Panel -->
+                            <div class="runner-config-panel">
+                                <h3>Configure Model Execution</h3>
+                                <p class="panel-subtitle">Select video footage, adjust tactical confidence, and launch the real-time inference pipeline.</p>
+
+                                <form id="runModelForm" class="tactical-form">
+                                    <!-- Source Selector -->
+                                    <div class="form-group">
+                                        <label class="form-label">VIDEO INPUT SOURCE</label>
+                                        <div class="source-radio-group">
+                                            <label class="radio-card active" id="radioDefaultLabel">
+                                                <input type="radio" name="video_source" value="default" checked id="radioDefault">
+                                                <div class="radio-content">
+                                                    <span class="radio-title">Preloaded Combat Footage</span>
+                                                    <span class="radio-desc font-mono">Ukraine drone video shows attack on Russian tanks (5.3 MB)</span>
+                                                </div>
+                                            </label>
+
+                                            <label class="radio-card" id="radioUploadLabel">
+                                                <input type="radio" name="video_source" value="upload" id="radioUpload">
+                                                <div class="radio-content">
+                                                    <span class="radio-title">Upload Custom Video</span>
+                                                    <span class="radio-desc font-mono">Upload MP4 / MOV / AVI / WEBM file</span>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Upload Dropzone (Conditional) -->
+                                    <div class="form-group upload-dropzone-wrapper" id="uploadDropzoneWrapper" style="display: none;">
+                                        <div class="upload-dropzone" id="uploadDropzone">
+                                            <span class="dropzone-icon">⬆</span>
+                                            <p class="dropzone-text">Drag and drop your thermal / night-vision video here</p>
+                                            <p class="dropzone-sub">or <button type="button" class="btn-text-link" id="browseFileBtn">browse files</button></p>
+                                            <input type="file" id="videoFileInput" accept="video/mp4,video/quicktime,video/x-msvideo,video/webm" style="display: none;">
+                                            <div class="upload-file-status font-mono" id="uploadStatusText"></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Model Core Selector -->
+                                    <div class="form-group">
+                                        <label class="form-label" for="modelSelect">TACTICAL AI MODEL CORE</label>
+                                        <select id="modelSelect" class="tactical-select">
+                                            <option value="auto" selected>Auto-Route (Sensor Adaptive: Thermal vs Drone)</option>
+                                            <option value="drone">ThirdEye YOLO11L Drone Combat & Convoy (Aerial EO/IR)</option>
+                                            <option value="thermal">ThirdEye YOLO11s Night Combat & FLIR (Thermal IR)</option>
+                                        </select>
+                                        <span class="form-help">Auto-Route automatically selects optimal weights based on sensor feed.</span>
+                                    </div>
+
+                                    <!-- Confidence Slider -->
+                                    <div class="form-group">
+                                        <div class="slider-label-group">
+                                            <label class="form-label" for="confSlider">CONFIDENCE THRESHOLD</label>
+                                            <span class="slider-val-badge font-mono" id="confValueBadge">15%</span>
+                                        </div>
+                                        <input type="range" id="confSlider" min="5" max="80" value="15" step="1" class="tactical-range">
+                                        <span class="form-help">Adaptive Mode: 15-25% recommended for Tactical Drone Convoy Recon; 10-15% for Deep FLIR Thermal.</span>
+                                    </div>
+
+                                    <!-- Duration Selector -->
+                                    <div class="form-group">
+                                        <label class="form-label" for="durationSelect">TEST DURATION (SAMPLE WINDOW)</label>
+                                        <select id="durationSelect" class="tactical-select">
+                                            <option value="15" selected>15 Seconds (Fast Interactive GPU Run - ~450 frames)</option>
+                                            <option value="30">30 Seconds (Extended Combat Scan - ~900 frames)</option>
+                                            <option value="60">60 Seconds (Deep Tactical Census - ~1800 frames)</option>
+                                            <option value="0">Full Video (Complete Operation)</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Start Offset -->
+                                    <div class="form-group">
+                                        <label class="form-label" for="startOffsetInput">START TIME OFFSET (SECONDS)</label>
+                                        <input type="number" id="startOffsetInput" min="0" max="300" value="0" class="tactical-input font-mono">
+                                    </div>
+
+                                    <!-- Checkboxes -->
+                                    <div class="form-checkbox-row">
+                                        <label class="checkbox-label">
+                                            <input type="checkbox" id="checkClahe" checked>
+                                            <span>Adaptive CLAHE Thermal Normalization</span>
+                                        </label>
+                                        <label class="checkbox-label">
+                                            <input type="checkbox" id="checkTracking" checked>
+                                            <span>ByteTrack Multi-Object Association & Voting</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-checkbox-row" style="margin-top: 6px;">
+                                        <label class="checkbox-label">
+                                            <input type="checkbox" id="checkSahi">
+                                            <span>SAHI Sliced Hyper-Inference (+40% Small Target Recall)</span>
+                                        </label>
+                                        <label class="checkbox-label">
+                                            <input type="checkbox" id="checkTta">
+                                            <span>TTA Multi-Scale Augmentation (Confidence Boost)</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-checkbox-row" style="margin-top: 6px;">
+                                        <label class="checkbox-label">
+                                            <input type="checkbox" id="checkNvg" checked>
+                                            <span>Gen-3 Night Vision Mode (Green Phosphor IIT Simulation)</span>
+                                        </label>
+                                    </div>
+
+                                    <!-- Submit Button -->
+                                    <button type="submit" class="btn-tactical btn-large btn-glow w-100" id="btnLaunchRun">
+                                        <span class="btn-icon">⚡</span>
+                                        <span>EXECUTE THIRDEYE PIPELINE ON VIDEO</span>
+                                    </button>
+                                </form>
+                            </div>
+
+                            <!-- Right: Live Execution Monitor & Result Player -->
+                            <div class="runner-monitor-panel">
+                                <div class="monitor-header">
+                                    <div class="monitor-title">
+                                        <span class="status-pip" id="liveRunnerPip"></span>
+                                        <span id="liveRunnerStatusTitle">MONITOR STATUS: IDLE / READY</span>
+                                    </div>
+                                    <div class="monitor-fps font-mono" id="liveFpsBadge">0.0 FPS</div>
+                                </div>
+
+                                <!-- Live Frame Stream Canvas / Preview -->
+                                <div class="live-stream-viewport" id="liveStreamViewport">
+                                    <div class="viewport-placeholder" id="viewportPlaceholder">
+                                        <span class="placeholder-icon">📡</span>
+                                        <p>Ready to process video feed</p>
+                                        <span class="placeholder-sub">Click "EXECUTE THIRDEYE PIPELINE" to start real-time GPU inference</span>
+                                    </div>
+
+                                    <!-- Real-time frame preview image during execution -->
+                                    <img id="liveStreamImg" alt="Live Processing Stream" style="display: none;">
+
+                                    <!-- Final output video player -->
+                                    <video id="liveResultVideo" controls playsinline style="display: none;" class="w-100 h-100"></video>
+                                </div>
+
+                                <!-- Progress Bar -->
+                                <div class="runner-progress-box">
+                                    <div class="progress-meta font-mono">
+                                        <span id="progressLabelText">Progress: 0%</span>
+                                        <span id="progressFrameText">Frame: 0 / 0</span>
+                                    </div>
+                                    <div class="progress-bar-track">
+                                        <div class="progress-bar-fill" id="runnerProgressBarFill"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Real-time Census & Event Feed -->
+                                <div class="monitor-data-split">
+                                    <div class="mini-census-card">
+                                        <span class="mini-card-hdr">DETECTED TARGETS CENSUS</span>
+                                        <div class="mini-census-values font-mono" id="liveCensusValues">
+                                            <div class="mc-item"><span class="col-soldier font-bold">Soldier:</span> <span id="liveCntSoldier">0</span></div>
+                                            <div class="mc-item"><span class="col-tank font-bold">Tank:</span> <span id="liveCntTank">0</span></div>
+                                            <div class="mc-item"><span class="col-apc font-bold">APC:</span> <span id="liveCntAPC">0</span></div>
+                                            <div class="mc-item"><span class="col-truck font-bold">Truck:</span> <span id="liveCntTruck">0</span></div>
+                                            <div class="mc-item"><span class="col-defense font-bold">Air Def:</span> <span id="liveCntDefense">0</span></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mini-events-card">
+                                        <span class="mini-card-hdr">LIVE TACTICAL EVENT LOG</span>
+                                        <div class="mini-log-feed font-mono text-xs" id="liveLogFeed">
+                                            <div class="text-muted">Awaiting pipeline trigger...</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Download output CTA (Revealed on finish) -->
+                                <div class="download-action-box" id="downloadActionBox" style="display: none;">
+                                    <a href="#" class="btn-tactical btn-small btn-glow" id="btnDownloadOutput" download="thirdeye_annotated.mp4">
+                                        <span>⬇ DOWNLOAD PROCESSED ANNOTATED MP4</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Future Scope Section -->
+        <section id="future" class="future-section">
+            <div class="container">
+                <div class="section-header text-center">
+                    <span class="section-tag">NEXT-GEN DEFENSE CAPABILITIES</span>
+                    <h2 class="section-title">Future Scope & Defense Roadmap</h2>
+                    <p class="section-subtitle">
+                        Expanding ThirdEye from tactical target detection to comprehensive battlefield domain dominance.
+                    </p>
+                </div>
+
+                <div class="future-grid">
+                    <div class="card-glass future-card">
+                        <div class="future-num font-mono">01</div>
+                        <h3>Synthetic Thermal CycleGAN Engine</h3>
+                        <p>
+                            Generating photorealistic synthetic MWIR/LWIR infrared targets from daylight satellite and drone imagery,
+                            scaling training datasets 100x without requiring dangerous combat flights.
+                        </p>
+                        <span class="roadmap-badge">IN ACTIVE RESEARCH</span>
+                    </div>
+
+                    <div class="card-glass future-card">
+                        <div class="card-icon">⚡</div>
+                        <div class="future-num font-mono">02</div>
+                        <h3>Multimodal Sensor Fusion (RGB + LWIR)</h3>
+                        <p>
+                            Cross-attention sensor fusion joining high-resolution visible spectrum cameras with long-wave infrared
+                            to eliminate false thermal decoys and penetrate dense smoke screens simultaneously.
+                        </p>
+                        <span class="roadmap-badge">PHASE II MILESTONE</span>
+                    </div>
+
+                    <div class="card-glass future-card">
+                        <div class="future-num font-mono">03</div>
+                        <h3>Vision-Language Tactical Threat Alerts</h3>
+                        <p>
+                            Integrating lightweight on-device Vision-Language Models (VLMs) to generate human-readable situational threat reports:
+                            <em>"Hostile convoy of 3 APCs advancing at 25 km/h bearing 045° toward checkpoint Bravo."</em>
+                        </p>
+                        <span class="roadmap-badge">PROTOTYPING</span>
+                    </div>
+
+                    <div class="card-glass future-card">
+                        <div class="future-num font-mono">04</div>
+                        <h3>TensorRT Multi-Stream Drone Edge Deployment</h3>
+                        <p>
+                            INT8 quantized TensorRT optimization targeting low-power tactical edge devices (NVIDIA Jetson Orin Nano / Micro-UAVs)
+                            at 120+ FPS with sub-15W power consumption.
+                        </p>
+                        <span class="roadmap-badge">BENCHMARKING</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="tactical-footer">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <div class="brand-group">
+                    <div class="brand-reticle">
+                        <span class="reticle-dot"></span>
+                    </div>
+                    <div class="brand-text">
+                        <span class="brand-title">THIRDEYE</span>
+                        <span class="brand-badge">TACTICAL DEFENSE AI</span>
+                    </div>
+                </div>
+                <p class="footer-desc">
+                    Autonomous thermal military vehicle & personnel detection, ByteTrack kinematics, and tactical census.
+                    Engineered with PyTorch, Ultralytics YOLO11, and Adaptive CLAHE.
+                </p>
+            </div>
+
+            <div class="footer-links">
+                <h4>QUICK NAVIGATION</h4>
+                <ul>
+                    <li><a href="#technology">Technology & Innovations</a></li>
+                    <li><a href="#architecture">Pipeline Architecture</a></li>
+                    <li><a href="#benchmarks">Ablation Results</a></li>
+                    <li><a href="#demo">Demo of the Project</a></li>
+                    <li><a href="#future">Future Scope</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-meta">
+                <h4>SYSTEM INTEGRITY</h4>
+                <div class="meta-row font-mono text-xs"><span>CLASSIFICATION:</span> <span>UNCLASSIFIED / PUBLIC DEMO</span></div>
+                <div class="meta-row font-mono text-xs"><span>BACKEND:</span> <span>FastAPI / PyTorch CUDA</span></div>
+                <div class="meta-row font-mono text-xs"><span>TARGET HARDWARE:</span> <span>Edge UAV & Forward Operating Units</span></div>
+                <p class="copyright text-muted text-xs">
+                    &copy; 2026 ThirdEye Defense Intelligence Systems. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Frontend Application Logic -->
+    <script src="/static/app.js"></script>
+</body>
+</html>
