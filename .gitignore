@@ -1,0 +1,37 @@
+# Binary model weights (100MB+ - host on HuggingFace/Drive instead of GitHub/Vercel)
+models/
+*.pt
+*.pth
+*.onnx
+*.bin
+*.engine
+
+# Heavy input video footage (raw operational source videos)
+*.mp4
+!static/demo/*.mp4
+
+# Dynamic runtime outputs & scratch data
+outputs/
+uploads/
+scratch/
+*.tmp.mp4
+
+# Python cache & Jupyter checkpoints
+__pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints/
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# System & IDE files
+*.log
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

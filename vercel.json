@@ -1,0 +1,8 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/", "destination": "/static/index.html" },
+    { "source": "/api/status", "destination": "/api/status.json" },
+    { "source": "/api/ablation", "destination": "/api/ablation.json" }
+  ]
+}

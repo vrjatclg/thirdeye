@@ -1,0 +1,41 @@
+{
+  "status": "online",
+  "system": "ThirdEye Tactical Autonomous AI v2.4",
+  "hardware": {
+    "gpu_acceleration": true,
+    "device": "NVIDIA GeForce RTX 5050 (Edge Military AI)",
+    "vram_gb": 8.0,
+    "framework": "PyTorch / Ultralytics YOLO11L + ByteTrack"
+  },
+  "default_video": {
+    "name": "Ukraine drone video shows attack on Russian tanks.mp4",
+    "exists": true,
+    "size_mb": 5.32,
+    "resolution": "1280x720 (HD)",
+    "framerate": 30.0
+  },
+  "classes": [
+    "Soldier",
+    "Tank",
+    "APC",
+    "Military_Truck",
+    "Mobile_Air_Defense"
+  ],
+  "models": [
+    {
+      "id": "auto",
+      "name": "Auto-Route (Sensor Adaptive: Thermal vs Drone)",
+      "active": true
+    },
+    {
+      "id": "drone",
+      "name": "ThirdEye YOLO11L Drone Combat & Convoy (Aerial EO/IR)",
+      "active": false
+    },
+    {
+      "id": "thermal",
+      "name": "ThirdEye YOLO11s Night Combat & FLIR (Thermal IR)",
+      "active": false
+    }
+  ]
+}
